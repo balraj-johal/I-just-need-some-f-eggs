@@ -12,11 +12,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float grav = -13.2f;
 
     //dash variables
+    bool coolingDown = false;
     [SerializeField] bool isPlayerDashing = false;
     [SerializeField] float dashDistance = 4.0f;
     [SerializeField] float dashTime = 1.0f;
     [SerializeField] float dashDuration = 1.0f;
     [SerializeField] float dashCooldown = 2.0f;
+    [SerializeField] float dashCooldownINIT = 2.0f;
     [SerializeField] float dashSmoothTime = 0.2f;
     [SerializeField] float dashFalloff = 0.2f;
     float dashSpeed;
@@ -75,7 +77,6 @@ public class PlayerController : MonoBehaviour
 
         //FOV
         Camera.main.fieldOfView = Mathf.MoveTowards(Camera.main.fieldOfView, FOV, Time.deltaTime * fovChangeSpeed);
-        print("fov: " + fovChangeSpeedINIT + " , fovchangespeed: " + fovChangeSpeed);
     }
 
     void UpdateMovement() {
@@ -91,12 +92,20 @@ public class PlayerController : MonoBehaviour
  
         //DASH CHECK
         if (Input.GetKeyDown("space")) {
-            if (!isPlayerDashing) {
+            if (!isPlayerDashing && !coolingDown) {
                 isPlayerDashing = true;
                 dashInputDirection = targetVec * dashDistance;
                 dashWorldF = transform.forward;
                 dashWorldR = transform.right;
                 StartCoroutine(BlipFOV(fovChangeDuration));
+            }
+        }
+
+        if (coolingDown) {
+            dashCooldown -= Time.deltaTime;
+            if (dashCooldown < 0) {
+                coolingDown = false;
+                dashCooldown = dashCooldownINIT;
             }
         }
 
@@ -117,12 +126,11 @@ public class PlayerController : MonoBehaviour
         if (dashTime <= 0) {
             isPlayerDashing = false;
             dashTime = dashDuration;
+            coolingDown = true;
         } else {
             dashTime -= Time.deltaTime;
-            //dash movement
-            currentDir = Vector2.SmoothDamp(currentDir, dashInputDirection, ref currentVelocity, dashSmoothTime);
-            //add vectors for strafe and forward back to get total velocity
-            Vector3 velocity = moveSpeed * (dashWorldF * currentDir.y + dashWorldR * currentDir.x) + Vector3.up * velocityY;
+            currentDir = Vector2.SmoothDamp(currentDir, dashInputDirection, ref currentVelocity, dashSmoothTime); //dash movement
+            Vector3 velocity = moveSpeed * (dashWorldF * currentDir.y + dashWorldR * currentDir.x) + Vector3.up * velocityY; //add vectors for strafe and forward & gravity
             controller.Move(velocity * Time.deltaTime);
         }
     }
