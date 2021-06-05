@@ -31,6 +31,7 @@ public class PlayerController : MonoBehaviour
 
     Vector2 currentDir = Vector2.zero;
     Vector2 currentVelocity = Vector2.zero;
+    Vector2 currentDirMove = Vector2.zero;
     float velocityY = 0.0f;
 
     bool lockCursor = true;
@@ -45,6 +46,16 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float fovChangeDuration = 2f;
 
 
+    //allow good player referencing
+    public static PlayerController instance {
+        get; private set;
+        }
+    void OnEnable (){
+        instance = this;
+    } 	
+    void OnDisable () {
+        instance = null;
+    }
 
     void Start()
     {
@@ -101,23 +112,34 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (coolingDown) {
+        //MOVE IT
+        if (isPlayerDashing) {
+            // //print("dashing");
+            DashMove();
+        } else if (coolingDown) {
+            //print("cooling down");
             dashCooldown -= Time.deltaTime;
-            if (dashCooldown < 0) {
+            if (dashCooldown <= 0) {
                 coolingDown = false;
                 dashCooldown = dashCooldownINIT;
             }
-        }
+            
+            // //print(dashInputDirection + " " + dashInputDirection.x);
+            // // Vector2 currentDirDash = Vector2.SmoothDamp(currentDir, dashInputDirection*(dashCooldown/2f), ref currentVelocity, dashSmoothTime);
+            // Vector3 velocityDashOver = dashCooldown * moveSpeed * (dashWorldF * dashInputDirection.y + dashWorldR * dashInputDirection.x) / 15.0f;
+            // // currentDir = Vector2.SmoothDamp(currentDir, targetVec + dashInputDirection*(dashCooldown/100f), ref currentVelocity, smoothTime);
+            currentDir = Vector2.SmoothDamp(currentDir, targetVec, ref currentVelocity, smoothTime);
+            Vector3 velocityInputMove = moveSpeed * (transform.forward * currentDir.y + transform.right * currentDir.x) + Vector3.up * velocityY;
+            controller.Move((velocityInputMove) * Time.deltaTime);
 
-        //MOVE IT
-        if (isPlayerDashing) {
-            DashMove();
+
         } else {
-        //smoothly transition movement
-        currentDir = Vector2.SmoothDamp(currentDir, targetVec, ref currentVelocity, smoothTime);
-        //add vectors for strafe and forward back to get total velocity
-        Vector3 velocity = moveSpeed * (transform.forward * currentDir.y + transform.right * currentDir.x) + Vector3.up * velocityY;
-        controller.Move(velocity * Time.deltaTime);
+            // //print("normal move");
+            //smoothly transition movement
+            currentDir = Vector2.SmoothDamp(currentDir, targetVec, ref currentVelocity, smoothTime);
+            //add vectors for strafe and forward back to get total velocity
+            Vector3 velocity = moveSpeed * (transform.forward * currentDir.y + transform.right * currentDir.x) + Vector3.up * velocityY;
+            controller.Move(velocity * Time.deltaTime);
         }
 
     }
@@ -134,6 +156,7 @@ public class PlayerController : MonoBehaviour
             controller.Move(velocity * Time.deltaTime);
         }
     }
+
     void SetFOV(float fovNew) {
         FOV = fovNew;
     }
