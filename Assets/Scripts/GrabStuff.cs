@@ -6,6 +6,7 @@ public class GrabStuff : MonoBehaviour
 {
 
     public float distance = 10;
+    private int enemyLayerMask = 1 << 3;
 
     // Start is called before the first frame update
     void Start()
@@ -23,16 +24,12 @@ public class GrabStuff : MonoBehaviour
         if (Input.GetButtonDown("Fire1")) {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
-            if (Physics.Linecast(ray.origin, ray.origin + ray.direction * distance, out hit))
-            {
+            if (Physics.Linecast(ray.origin, ray.origin + ray.direction * distance, out hit, enemyLayerMask)) {
                 BoxCollider bc = hit.collider as BoxCollider;
                 GameObject target = bc.gameObject;
-                if (target.tag == "Cereal") {
-                    Destroy(target);
-                    PlayerController.instance.ChangeWeapon(target.tag);
-                    // other.GetComponent<EnemyController>().CallYourFunctionHere();
-                }
-             }
+                Destroy(target);
+                PlayerController.instance.ChangeWeapon(target.tag);
+            }
         }
     }
 }
