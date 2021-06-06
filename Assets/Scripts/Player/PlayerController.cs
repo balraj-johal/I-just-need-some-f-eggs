@@ -164,5 +164,8 @@ public class PlayerController : MonoBehaviour
         currentWeapon = newWeapon;
         print(currentWeapon);
     }
+    public string GetCurrentWeapon() {
+        return currentWeapon;
+    }
 
 }
