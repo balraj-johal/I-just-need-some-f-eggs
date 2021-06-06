@@ -35,7 +35,6 @@ public class PlayerController : MonoBehaviour
     float velocityY = 0.0f;
 
     bool lockCursor = true;
-    // Start is called before the first frame update
 
     //CAMERA
     float FOV;
@@ -45,20 +44,21 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float fovChangeSpeedINIT = 50f;
     [SerializeField] float fovChangeDuration = 2f;
 
+    //WEAPON CODE
+    private string currentWeapon = "None";
 
     //allow good player referencing
     public static PlayerController instance {
         get; private set;
-        }
-    void OnEnable (){
+    }
+    void OnEnable () {
         instance = this;
     } 	
     void OnDisable () {
         instance = null;
     }
 
-    void Start()
-    {
+    void Start() {
         if (lockCursor) {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
@@ -69,14 +69,12 @@ public class PlayerController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update() {
         UpdateCamera();
         UpdateMovement();
     }
 
-    void UpdateCamera()
-    {
+    void UpdateCamera() {
         //rotate player obj around y axis
         Vector2 mouseDelta = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
         transform.Rotate(Vector3.up * mouseDelta.x * senseX);
@@ -114,16 +112,13 @@ public class PlayerController : MonoBehaviour
 
         //MOVE IT
         if (isPlayerDashing) {
-            // //print("dashing");
             DashMove();
         } else if (coolingDown) {
-            //print("cooling down");
             dashCooldown -= Time.deltaTime;
             if (dashCooldown <= 0) {
                 coolingDown = false;
                 dashCooldown = dashCooldownINIT;
             }
-            
             // //print(dashInputDirection + " " + dashInputDirection.x);
             // // Vector2 currentDirDash = Vector2.SmoothDamp(currentDir, dashInputDirection*(dashCooldown/2f), ref currentVelocity, dashSmoothTime);
             // Vector3 velocityDashOver = dashCooldown * moveSpeed * (dashWorldF * dashInputDirection.y + dashWorldR * dashInputDirection.x) / 15.0f;
@@ -131,10 +126,7 @@ public class PlayerController : MonoBehaviour
             currentDir = Vector2.SmoothDamp(currentDir, targetVec, ref currentVelocity, smoothTime);
             Vector3 velocityInputMove = moveSpeed * (transform.forward * currentDir.y + transform.right * currentDir.x) + Vector3.up * velocityY;
             controller.Move((velocityInputMove) * Time.deltaTime);
-
-
         } else {
-            // //print("normal move");
             //smoothly transition movement
             currentDir = Vector2.SmoothDamp(currentDir, targetVec, ref currentVelocity, smoothTime);
             //add vectors for strafe and forward back to get total velocity
@@ -157,15 +149,19 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void SetFOV(float fovNew) {
-        FOV = fovNew;
-    }
-    IEnumerator BlipFOV(float time)
-    {
+    IEnumerator BlipFOV(float time) {
         SetFOV(fovChangeTo);
         fovChangeSpeed = fovChangeSpeedINIT;
         yield return new WaitForSeconds(time);
         SetFOV(initFOV);
         fovChangeSpeed = fovChangeSpeedINIT * 0.5f;
     }
+    void SetFOV(float fovNew) {
+        FOV = fovNew;
+    }
+
+    public void ChangeWeapon(string newWeapon) {
+        currentWeapon = newWeapon;
+    }
+
 }
