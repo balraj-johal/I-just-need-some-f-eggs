@@ -10,9 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 7722984304161688027}
   - component: {fileID: 7722984304161688026}
-  - component: {fileID: 7722984304161688036}
   - component: {fileID: 7722984304161688037}
   - component: {fileID: 7722984304161688039}
+  - component: {fileID: 5300130375078664055}
+  - component: {fileID: 7977887435293620194}
   m_Layer: 3
   m_Name: Enemy (CerealBox) 1
   m_TagString: Cereal
@@ -32,6 +33,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8351026752332394637}
+  - {fileID: 4205983340884847952}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -51,28 +53,6 @@ MonoBehaviour:
   speed: 3.5
   attackRate: 5
   hp: 100
---- !u!195 &7722984304161688036
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7722984304161688024}
-  m_Enabled: 0
-  m_AgentTypeID: 0
-  m_Radius: 0.5
-  m_Speed: 3.5
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 2
-  m_BaseOffset: 0
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
 --- !u!54 &7722984304161688037
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -102,6 +82,77 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.67, y: 1, z: 0.27}
   m_Center: {x: 0, y: 2, z: 0}
+--- !u!195 &5300130375078664055
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7722984304161688024}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 60
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 1
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!114 &7977887435293620194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7722984304161688024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc345036a1bfbb6479075ce75abf4fb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletsPerShot: 12
+  bulletSpread: 0.04
+  gravRate: 0
+  shotSpeed: 10000
+  dmg: 0
+  projectile: {fileID: 5057686411188996252, guid: f6a294315c4298e499d75fb1d0cb9f4e, type: 3}
+  endPoint: {fileID: 4205983340884847952}
+--- !u!1 &9098982240653587041
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4205983340884847952}
+  m_Layer: 3
+  m_Name: endPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4205983340884847952
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9098982240653587041}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 2.513, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7722984304161688027}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &8389774996640307046
 PrefabInstance:
   m_ObjectHideFlags: 0

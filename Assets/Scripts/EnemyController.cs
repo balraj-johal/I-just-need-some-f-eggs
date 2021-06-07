@@ -9,7 +9,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] float keepAwayDist = 15f;
     [SerializeField] float speed = 3.5f;
     // NavMeshAgent agent; 
-
+    NavMeshAgent agent;
     //ATTACK stuff
     [SerializeField] float attackRate = 3f;
     float nextAttackTime = 0;
@@ -17,13 +17,14 @@ public class EnemyController : MonoBehaviour
     //ENEMY stuff
     public int hp = 100;
     Rigidbody rb;
+    EnemyShoot shooter;
 
     // Start is called before the first frame update
     void Start() {
         rb = GetComponent<Rigidbody>();
-        // agent = GetComponent<NavMeshAgent>();
-        // agent.stoppingDistance = keepAwayDist;
-        // agent.speed = speed;
+        agent = GetComponent<NavMeshAgent>();
+        shooter = GetComponent<EnemyShoot>();
+        agent.destination = PlayerController.instance.transform.position;
     }
 
     // Update is called once per frame
@@ -31,11 +32,12 @@ public class EnemyController : MonoBehaviour
         DeathCheck();
 
         //move navmesh agent
-        // agent.destination = PlayerController.instance.transform.position;
+        agent.destination = PlayerController.instance.transform.position;
 
         //attack timer
         if(Time.time > nextAttackTime) {
             nextAttackTime = Time.time + attackRate;
+            shooter.Shoot();
             // print("ATTACK!");
         }
     }
