@@ -21,9 +21,10 @@ public class ProjectileMove : MonoBehaviour
     }
 
     void OnTriggerEnter(Collider collider) {
-        if (collider.gameObject.layer != LayerMask.NameToLayer("Player"))
+        // if (collider.gameObject.layer != LayerMask.NameToLayer("Player") || collider.gameObject.tag != "PlayerProj")
+        if (collider.gameObject.layer != LayerMask.NameToLayer("Player") && collider.gameObject.tag != "PlayerProj")
         {
-            Debug.Log("NOT PLAYER");
+            Debug.Log("NOT PLAYER " + collider.gameObject.tag);
             HitSomething(collider);
         } else {
             Debug.Log("PLAYER");

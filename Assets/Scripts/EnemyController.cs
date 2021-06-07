@@ -51,8 +51,6 @@ public class EnemyController : MonoBehaviour
         }
     }
     public void ApplyForce(Vector3 bulletVelocity) {
-        print("applyingforce");
-        bulletVelocity = bulletVelocity;
         rb.AddForce(bulletVelocity.x, 0, bulletVelocity.z);
     }
 }
