@@ -33,7 +33,7 @@ public class ShootyGoBang : MonoBehaviour
         }
     }
 
-    void Shoot () {        
+    void Shoot () {
         // Vector3 mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 12);
         // mousePos = Camera.main.ScreenToWorldPoint(mousePos);
 
@@ -43,4 +43,6 @@ public class ShootyGoBang : MonoBehaviour
         ammo --;
         print("SHOOT");
     }
+
+    
 }

@@ -27,7 +27,7 @@ public class EnemyController : MonoBehaviour
 
         if(Time.time > nextAttackTime) {
             nextAttackTime = Time.time + attackRate;
-            print("ATTACK!");
+            // print("ATTACK!");
         }
     }
 

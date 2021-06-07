@@ -18,4 +18,22 @@ public class ProjectileMove : MonoBehaviour
     {
         // rb.AddForce(transform.forward * speed);
     }
+
+    void OnCollisionEnter(Collision collision) {
+        if (collision.collider.gameObject.layer != LayerMask.NameToLayer("Player"))
+        {
+            Debug.Log("NOT PLAYER");
+            HitSomething(collision);
+        } else {
+            Debug.Log("PLAYER");
+        }
+    }
+
+    void HitSomething(Collision collision) {
+        ContactPoint contact = collision.contacts[0];
+        Quaternion rotation = Quaternion.FromToRotation(Vector3.up, contact.normal);
+        Vector3 position = contact.point;
+        // Instantiate(explosionPrefab, position, rotation);
+        Destroy(gameObject);
+    }
 }
