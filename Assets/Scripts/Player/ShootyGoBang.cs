@@ -17,6 +17,8 @@ public class ShootyGoBang : MonoBehaviour
 
     public Transform projectile;
     public Transform endPoint;
+    public Transform emptyPrefab;
+    public float throwForce = 1250f;
 
     // Start is called before the first frame update
     void Start()
@@ -39,6 +41,8 @@ public class ShootyGoBang : MonoBehaviour
         }
         if (ammo <= 0) {
             PlayerController.instance.ChangeWeapon("None");
+            Transform thrownEmpty = Instantiate(emptyPrefab, endPoint.transform.position, Quaternion.identity);
+            thrownEmpty.GetChild(0).GetComponent<Rigidbody>().AddForce(endPoint.transform.forward * throwForce);
         }
     }
 
@@ -66,5 +70,9 @@ public class ShootyGoBang : MonoBehaviour
     public void ReloadAmmo() {
         ammo = maxAmmo;
     }
+
+    // IEnumerator FinishWeapon(string currentWeapon) {
+    //     yield return new WaitForSeconds(2);
+    // }
     
 }
