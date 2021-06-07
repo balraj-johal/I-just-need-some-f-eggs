@@ -23,6 +23,12 @@ public class ShootyGoBang : MonoBehaviour
     {
         ammo = maxAmmo;
     }
+    // Start is called before the first frame update
+    void OnEnable()
+    {
+        print("onenabel");
+        ammo = maxAmmo;
+    }
 
     // Update is called once per frame
     void Update()
@@ -57,5 +63,8 @@ public class ShootyGoBang : MonoBehaviour
         // }
     }
 
+    public void ReloadAmmo() {
+        ammo = maxAmmo;
+    }
     
 }

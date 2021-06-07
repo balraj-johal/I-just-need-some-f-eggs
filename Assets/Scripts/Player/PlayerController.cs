@@ -45,7 +45,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float fovChangeDuration = 2f;
 
     //WEAPON CODE
-    private string currentWeapon = "None";
+    public string currentWeapon = "None";
 
     //allow good player referencing
     public static PlayerController instance {

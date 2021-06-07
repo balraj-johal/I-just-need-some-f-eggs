@@ -23,8 +23,8 @@ public class WeaponSwitcher : MonoBehaviour
     }
 
     void SelectWeapon() {
+        print("current weapin is " + currentWeapon);
         int targetIndex = 0;
-
         switch (currentWeapon) {
             case "None":
                 targetIndex = 0;
@@ -43,6 +43,7 @@ public class WeaponSwitcher : MonoBehaviour
         foreach (Transform weapon in transform) {
             if (index == targetIndex) {
                 weapon.gameObject.SetActive(true);
+                // weapon.gameObject.GetComponent<ShootyGoBang>().ReloadAmmo();
             } else {
                 weapon.gameObject.SetActive(false);
             }
