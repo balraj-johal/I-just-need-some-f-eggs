@@ -43,4 +43,8 @@ public class ProjectileMove : MonoBehaviour
         }
         Destroy(gameObject); //destroy Self
     }
+
+    public void InitialRelativeForce(Vector3 force) {
+        
+    }
 }

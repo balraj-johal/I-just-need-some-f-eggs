@@ -41,7 +41,7 @@ public class MilkShoot : MonoBehaviour
         bullet.GetComponent<Rigidbody>().AddForce(endPoint.transform.forward * 1000f);
 
         ammo --;
-        print("SHOOT");
+        // print("SHOOT");
     }
 
     

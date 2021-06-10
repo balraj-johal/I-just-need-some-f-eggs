@@ -23,7 +23,7 @@ public class WeaponSwitcher : MonoBehaviour
     }
 
     void SelectWeapon() {
-        print("current weapin is " + currentWeapon);
+        // print("current weapin is " + currentWeapon);
         int targetIndex = 0;
         switch (currentWeapon) {
             case "None":

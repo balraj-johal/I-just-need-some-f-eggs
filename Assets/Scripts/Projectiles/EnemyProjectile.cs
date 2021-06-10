@@ -36,7 +36,7 @@ public class EnemyProjectile : MonoBehaviour
         // Vector3 position = contact.point;
         // Instantiate(explosionPrefab, position, rotation);
         // Vector3 bulletVelocity = rb.velocity;
-        print("HIT u");
+        // print("HIT u");
         // if (collider.transform.tag == "Cereal") {
         //     collider.gameObject.GetComponent<EnemyController>().ApplyForce(bulletVelocity);
         //     collider.gameObject.GetComponent<EnemyController>().TakeDamage(damage);

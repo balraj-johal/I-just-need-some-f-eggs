@@ -25,7 +25,7 @@ public class EnemyShoot : MonoBehaviour
     }
 
     public void Shoot () {
-        print("SHOOT");
+        // print("SHOOT");
         Transform bullet;
         for (int i = 0; i < bulletsPerShot; i++)
         {

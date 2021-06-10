@@ -15,6 +15,8 @@ public class ShootyGoBang : MonoBehaviour
     public float shotSpeed = 10000f;
     public int dmg;
 
+    Rigidbody rb;
+
     public Transform projectile;
     public Transform endPoint;
     public Transform emptyPrefab;
@@ -23,12 +25,13 @@ public class ShootyGoBang : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        rb = GetComponent<Rigidbody>();
         ammo = maxAmmo;
     }
     // Start is called before the first frame update
     void OnEnable()
     {
-        print("onenabel");
+        // print("onenabel");
         ammo = maxAmmo;
     }
 
@@ -50,21 +53,13 @@ public class ShootyGoBang : MonoBehaviour
         // Vector3 mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 12);
         // mousePos = Camera.main.ScreenToWorldPoint(mousePos);
         Transform bullet;
-        
         for (int i = 0; i < bulletsPerShot; i++)
         {
-            // bullet = Instantiate(projectile, endPoint.transform.position, Quaternion.identity);
+            // print("player vel: " + rb.velocity.magnitude);
             bullet = Instantiate(projectile, endPoint.transform.position, Quaternion.Lerp(Quaternion.identity, Random.rotation, bulletSpread));
             bullet.GetComponent<Rigidbody>().AddRelativeForce(endPoint.transform.forward * 1000f);
             ammo --;
         }
-        // for (int i = 0; i < bulletsPerShot; i++)
-        // {
-        //     var offset = Random.Range(0.0f, 1f);
-        //     bullet = Instantiate(projectile, endPoint.transform.position, Quaternion.identity * Quaternion.Lerp(Random.rotation, Quaternion.identity, bulletSpread));
-        //     bullet.GetComponent<Rigidbody>().AddForce(endPoint.transform.forward * shotSpeed);
-        //     ammo --;
-        // }
     }
 
     public void ReloadAmmo() {
