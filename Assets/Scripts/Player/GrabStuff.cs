@@ -24,17 +24,24 @@ public class GrabStuff : MonoBehaviour
 
     void CheckGrab() {
         if (Input.GetButtonDown("Fire1") && currentWeapon == "None") {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition); 
+            // Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition); 
             Ray ray2 = Camera.main.ViewportPointToRay(new Vector3(0.5F, 0.5F, 0));
             RaycastHit hit;
-            Debug.DrawLine(ray.origin, ray.origin + ray.direction * distance, new Color(1.0f, 0.5f, 1.0f));
+            // Debug.DrawLine(ray.origin, ray.origin + ray.direction * distance, new Color(1.0f, 0.5f, 1.0f));
             Debug.DrawRay(ray2.origin, ray2.direction, Color.yellow);
-            if (Physics.Linecast(ray2.origin, ray2.origin + ray2.direction * distance, out hit, enemyLayerMask)) {
+            if (Physics.Raycast(ray2, out hit, 10, enemyLayerMask)) {
                 BoxCollider bc = hit.collider as BoxCollider;
                 GameObject target = bc.gameObject;
+                Debug.Log(target.tag);
                 Destroy(target);
                 PlayerController.instance.ChangeWeapon(target.tag);
             }
+            // if (Physics.Linecast(ray2.origin, ray2.origin + ray2.direction * distance, out hit, enemyLayerMask)) {
+            //     BoxCollider bc = hit.collider as BoxCollider;
+            //     GameObject target = bc.gameObject;
+            //     Destroy(target);
+            //     PlayerController.instance.ChangeWeapon(target.tag);
+            // }
 
             // Camera.main.ScreenPointToRay(Input.mousePosition); 
             // Ray ray2 = Camera.main.ViewportPointToRay(new Vector3(0.5F, 0.5F, 0));
