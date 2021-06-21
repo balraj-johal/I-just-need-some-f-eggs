@@ -12,27 +12,22 @@ public class ProjectileMove : MonoBehaviour
         "Cereal",
         "Milk"
     };
-
-    // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        // rb.AddForce(transform.forward * speed);
     }
 
     void OnTriggerEnter(Collider collider) {
-        // if (collider.gameObject.layer != LayerMask.NameToLayer("Player") || collider.gameObject.tag != "PlayerProj")
         if (collider.gameObject.layer != LayerMask.NameToLayer("Player") && collider.gameObject.tag != "PlayerProj")
         {
-            Debug.Log("NOT PLAYER " + collider.gameObject.tag);
+            // Debug.Log("NOT PLAYER " + collider.gameObject.tag);
             HitSomething(collider);
         } else {
-            Debug.Log("PLAYER");
+            // Debug.Log("PLAYER");
         }
     }
 
