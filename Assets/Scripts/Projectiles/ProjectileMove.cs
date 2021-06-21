@@ -8,6 +8,11 @@ public class ProjectileMove : MonoBehaviour
     public float shotSpeed = 600.0f;
     public int damage = 10;
 
+    private string[] enemyTags = {
+        "Cereal",
+        "Milk"
+    };
+
     // Start is called before the first frame update
     void Start()
     {
@@ -37,7 +42,7 @@ public class ProjectileMove : MonoBehaviour
         // Vector3 position = contact.point;
         // Instantiate(explosionPrefab, position, rotation);
         Vector3 bulletVelocity = rb.velocity;
-        if (collider.transform.tag == "Cereal") {
+        if (System.Array.Exists(enemyTags, elem => elem == collider.transform.tag)) {
             collider.gameObject.GetComponent<EnemyController>().ApplyForce(bulletVelocity);
             collider.gameObject.GetComponent<EnemyController>().TakeDamage(damage);
         }
