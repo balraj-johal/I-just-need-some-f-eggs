@@ -298,6 +298,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b5810514b105a94e92f0326ae15f18c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cameraShake: {fileID: 618420590}
+  camShakeMagnitude: 0.05
   gunType: Cereal
   bulletsPerShot: 12
   bulletSpread: 0.03
@@ -384,6 +386,7 @@ GameObject:
   - component: {fileID: 618420587}
   - component: {fileID: 618420589}
   - component: {fileID: 618420588}
+  - component: {fileID: 618420590}
   m_Layer: 6
   m_Name: Camera
   m_TagString: MainCamera
@@ -457,6 +460,18 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!114 &618420590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 618420586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5729da5a70a796e448264f298c695c96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &666181446 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1656525783973239509, guid: 2e4680c4350fe0340a978d8e40d3d8d4, type: 3}
@@ -2038,6 +2053,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b5810514b105a94e92f0326ae15f18c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cameraShake: {fileID: 618420590}
+  camShakeMagnitude: 0.1
   gunType: 
   bulletsPerShot: 5
   bulletSpread: 0.1

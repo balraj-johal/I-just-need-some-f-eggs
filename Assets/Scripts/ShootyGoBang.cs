@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class ShootyGoBang : MonoBehaviour
 {
+    public CameraShake cameraShake;
+    public float camShakeMagnitude = 1f;
+
     public string gunType;
     public int bulletsPerShot = 5;
     public float bulletSpread = 0.1f;
@@ -46,12 +49,15 @@ public class ShootyGoBang : MonoBehaviour
             PlayerController.instance.ChangeWeapon("None");
             Transform thrownEmpty = Instantiate(emptyPrefab, endPoint.transform.position, Quaternion.identity);
             thrownEmpty.GetChild(0).GetComponent<Rigidbody>().AddForce(endPoint.transform.forward * throwForce);
+
+            cameraShake.ReturnCam();
         }
     }
 
     void Shoot () {
         // Vector3 mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 12);
-        // mousePos = Camera.main.ScreenToWorldPoint(mousePos);
+        // mousePos = Camera.main.ScreenToWorldPoint(mousePos);#
+        StartCoroutine(cameraShake.Shake(.15f, camShakeMagnitude));
         Transform bullet;
         for (int i = 0; i < bulletsPerShot; i++)
         {
